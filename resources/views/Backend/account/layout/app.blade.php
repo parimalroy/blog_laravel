@@ -12,7 +12,7 @@
             <!-- Profile Dropdown -->
             <div class="relative">
                 <button id="profile-menu-button" class="flex items-center space-x-3 focus:outline-none">
-                    <img src="https://via.placeholder.com/40" alt="Profile" class="w-10 h-10 rounded-full">
+                    <img src="{{ asset('storage/' . Auth::user()->photo) }}" alt="Profile" class="w-10 h-10 rounded-full">
                     <span class="hidden md:block text-slate-800 font-medium">{{ Auth::user()->name }}</span>
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-slate-600" viewBox="0 0 20 20"
                         fill="currentColor">

@@ -7,11 +7,15 @@
             </li>
             <li><a href="#users-section" class="block px-4 py-2 rounded-md hover:bg-slate-700">Manage Users</a>
             </li>
+            <li><a href="{{ route('profile.edit') }}" class="block px-4 py-2 rounded-md hover:bg-slate-700">Update
+                    Profile</a>
+            </li>
             <li><a href="#settings-section" class="block px-4 py-2 rounded-md hover:bg-slate-700">Settings</a>
             </li>
         </ul>
     </nav>
     <div class="p-4">
-        <a href="#" class="block px-4 py-2 text-center rounded-md bg-red-600 hover:bg-red-500">Logout</a>
+        <a href="{{ route('profile.logout') }}"
+            class="block px-4 py-2 text-center rounded-md bg-red-600 hover:bg-red-500">Logout</a>
     </div>
 </aside>

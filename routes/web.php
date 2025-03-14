@@ -18,6 +18,8 @@ Route::group(['prefix'=>'account'],function(){
     Route::group(['middleware'=>'auth'],function(){
         Route::get('profile',[AccountController::class,'profile_index'])->name('profile.index');
         Route::get('profile/logout',[AccountController::class,'destory'])->name('profile.logout');
+        Route::get('profile/edit',[AccountController::class,'profile_edit'])->name('profile.edit');
+        Route::post('profile/update',[AccountController::class,'profile_update'])->name('profile.update');
     });
     
 });
