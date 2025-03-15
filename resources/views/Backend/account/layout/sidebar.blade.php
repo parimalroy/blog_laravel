@@ -2,8 +2,12 @@
     <div class="p-6 text-center font-bold text-2xl tracking-wide border-b border-slate-700">Admin Panel</div>
     <nav class="flex-grow">
         <ul class="space-y-2 p-4">
-            <li><a href="#" class="block px-4 py-2 rounded-md hover:bg-slate-700">Dashboard</a></li>
-            <li><a href="#blogs-section" class="block px-4 py-2 rounded-md hover:bg-slate-700">Manage Blogs</a>
+            <li><a href="{{ route('profile.index') }}" class="block px-4 py-2 rounded-md hover:bg-slate-700">Dashboard</a>
+            </li>
+            <li><a href="{{ route('category.index') }}"
+                    class="block px-4 py-2 rounded-md hover:bg-slate-700">Categories</a>
+            </li>
+            <li><a href="{{ route('blog.index') }}" class="block px-4 py-2 rounded-md hover:bg-slate-700">Manage Blogs</a>
             </li>
             <li><a href="#users-section" class="block px-4 py-2 rounded-md hover:bg-slate-700">Manage Users</a>
             </li>

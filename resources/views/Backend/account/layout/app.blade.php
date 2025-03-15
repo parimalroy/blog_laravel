@@ -37,3 +37,4 @@
     </main>
 </div>
 @include('Backend.account.layout.footer')
+@yield('script')
