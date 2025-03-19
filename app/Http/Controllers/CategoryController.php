@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Blog;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -66,5 +67,25 @@ class CategoryController extends Controller
                 'message'=>'Category Updated',
             ]);
          }
+    }
+
+    //this function show categorie list in forntend
+    public function list(){
+        $categories = Category::all();
+        //  $blogCount=Blog::where('categorie_id','categorie_id')->count();
+        //  return $blogCount;
+
+        return view('Frontend.categorie',['categories'=>$categories]);
+    }
+
+    //this method show categories blog list
+    public function categorie_single($id){
+        $categorieId =Category::find($id);
+        $blogCount =$categorieId->blogs()->count();
+        $blogs =$categorieId->blogs()->paginate(6);
+       
+       
+        return view('Frontend.categorieSingle',['blogs'=>$blogs,'categorieId'=>$categorieId,'blogCount'=>$blogCount]);
+
     }
 }
