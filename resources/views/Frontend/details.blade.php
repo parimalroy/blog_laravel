@@ -44,8 +44,8 @@
                 </div>
             </form>
             <!-- Comment Box with Reply Button (Second) -->
-            @if ($comments->isNotEmpty())
-                @foreach ($comments as $cmt)
+            @if ($blog->comments->isNotEmpty())
+                @foreach ($blog->comments as $cmt)
                     <div class="max-w-4xl mx-auto mt-6 p-4 bg-white rounded-lg shadow-lg mb-6">
                         <div class="flex items-start space-x-4">
 

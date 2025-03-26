@@ -17,10 +17,14 @@ class HomeController extends Controller
 
     //this method show blog details page
     public function details($id){
-        $blog = Blog::findorFail($id);
-        $comments=Comment::where('status',1)->get();
+        $blog = Blog::with(['comments'=>function($query){
+            $query->where('status',1)->orderBy('created_at','desc');;
+        }])->findorFail($id);
+        
+        // dd($blog);
+        // $comments=Comment::where('status',1)->get();
         $reletedBlog=Blog::inRandomOrder()->limit(3)->get();
-        return view('Frontend.details',['blog'=>$blog,'reletedBlog'=>$reletedBlog,'comments'=>$comments]);
+        return view('Frontend.details',['blog'=>$blog,'reletedBlog'=>$reletedBlog]);
     }
 
     //this method show blog list

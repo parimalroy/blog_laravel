@@ -19,6 +19,10 @@ class Blog extends Model
         return $this->belongsTo(Category::class,'categorie_id');
     }
 
+    public function comments(){
+        return $this->hasMany(Comment::class);
+    }
+
     Public function Title():Attribute{
         return Attribute::make(
             set:fn($value)=>strtolower($value),

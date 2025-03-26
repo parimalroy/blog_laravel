@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Comment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -105,6 +106,31 @@ class AccountController extends Controller
 
      //this function show all comment list for admin
      public function comment_index(){
-        return view('Backend.comment.index');
+        $comments = Comment::all();
+        return view('Backend.comment.index',['comments'=>$comments]);
      }
+
+     //this method edit comment 
+     public function comment_edit($id){
+        $comment =Comment::findOrFail($id);
+        return view('Backend.comment.edit',['comment'=>$comment]);
+    }
+
+    //this method update comment and status for admin
+    public function comment_update(Request $request){
+        $request->validate([
+            'comment'=>'required|min:3|max:255',
+            'status'=>'required'
+        ]);
+
+        $comment=Comment::find($request->id);
+        $comment->update([
+            'comment'=>$request->comment,
+            'status'=>$request->status
+        ]);
+
+        if($comment){
+            return redirect()->route('comment.edit',$request->id)->with('success','comment Updated !');
+        }
+    }
 }

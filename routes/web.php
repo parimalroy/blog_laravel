@@ -18,6 +18,9 @@ Route::get('/blog/categorie', [CategoryController::class,'list'])->name('categor
 Route::get('/blog/categorie/single/{id}', [CategoryController::class,'categorie_single'])->name('categorie.single');
 
 Route::get('/blog/comment/index', [AccountController::class,'comment_index'])->name('comment.index');
+Route::get('/blog/comment/edit/{id}', [AccountController::class,'comment_edit'])->name('comment.edit');
+Route::post('/blog/comment/update', [AccountController::class,'comment_update'])->name('comment.update');
+
 Route::post('/blog/comment/store', [HomeController::class,'comment_store'])->name('comment.store');
 
 

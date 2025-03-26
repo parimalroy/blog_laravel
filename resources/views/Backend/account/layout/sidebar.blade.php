@@ -9,7 +9,7 @@
             </li>
             <li><a href="{{ route('blog.index') }}" class="block px-4 py-2 rounded-md hover:bg-slate-700">Manage Blogs</a>
             </li>
-            <li><a href="#users-section" class="block px-4 py-2 rounded-md hover:bg-slate-700">Comment</a>
+            <li><a href="{{ route('comment.index') }}" class="block px-4 py-2 rounded-md hover:bg-slate-700">Comment</a>
             </li>
             <li><a href="#users-section" class="block px-4 py-2 rounded-md hover:bg-slate-700">Manage Users</a>
             </li>
