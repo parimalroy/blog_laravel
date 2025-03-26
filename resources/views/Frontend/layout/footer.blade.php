@@ -13,6 +13,17 @@
         mobileMenu.classList.toggle('hidden');
     });
 </script>
+<script>
+    // Open the reply modal
+    document.getElementById('openReplyModal').addEventListener('click', function() {
+        document.getElementById('replyModal').classList.remove('hidden');
+    });
+
+    // Close the reply modal
+    document.getElementById('closeReplyModal').addEventListener('click', function() {
+        document.getElementById('replyModal').classList.add('hidden');
+    });
+</script>
 </body>
 
 </html>

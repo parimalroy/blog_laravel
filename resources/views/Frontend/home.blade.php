@@ -6,10 +6,17 @@
             <h1 class="text-5xl font-extrabold mb-4">Welcome to Blogify</h1>
             <p class="text-lg font-medium mb-6">Discover the latest in tech, programming, and design inspired by Vue.js.
             </p>
-            <a href="#posts"
-                class="px-6 py-3 bg-slate-700 text-white font-bold rounded-lg shadow-md hover:bg-slate-600 transition duration-300">
-                Browse Posts
-            </a>
+            @if (Auth::check())
+                <a href="{{ route('blog.create') }}"
+                    class="px-6 py-3 bg-slate-700 text-white font-bold rounded-lg shadow-md hover:bg-slate-600 transition duration-300">
+                    Browse Posts
+                </a>
+            @else
+                <a href="{{ route('login.index') }}"
+                    class="px-6 py-3 bg-slate-700 text-white font-bold rounded-lg shadow-md hover:bg-slate-600 transition duration-300">
+                    Browse Posts
+                </a>
+            @endif
         </div>
     </section>
 @endsection

@@ -103,5 +103,8 @@ class AccountController extends Controller
         }
     }
 
-     
+     //this function show all comment list for admin
+     public function comment_index(){
+        return view('Backend.comment.index');
+     }
 }

@@ -26,12 +26,14 @@
             <!-- Navigation Menu -->
             <nav id="menu" class="hidden md:flex space-x-6">
                 <a href="{{ route('home.index') }}"
-                    class="hover:underline px-4 py-2 rounded-md bg-slate-700 font-bold text-white">Home</a>
+                    class="{{ Request::path() == '/' ? 'hover:underline px-4 py-2 rounded-md bg-slate-700 font-bold text-white' : 'hover:underline text-slate-300 px-4 py-2 rounded-md' }}">Home</a>
                 <a href="{{ route('categorie.list') }}"
-                    class="hover:underline text-slate-300 px-4 py-2 rounded-md">Categories</a>
-                <a href="{{ route('home.list') }}" class="hover:underline text-slate-300 px-4 py-2 rounded-md">List</a>
+                    class="{{ Request::segment(2) == 'categorie' ? 'hover:underline px-4 py-2 rounded-md bg-slate-700 font-bold text-white' : 'hover:underline text-slate-300 px-4 py-2 rounded-md' }}">Categories</a>
+                <a href="{{ route('home.list') }}"
+                    class="{{ Request::segment(2) == 'list' ? 'hover:underline px-4 py-2 rounded-md bg-slate-700 font-bold text-white' : 'hover:underline text-slate-300 px-4 py-2 rounded-md' }}">List</a>
                 @if (Auth::check())
-                    <a href="#" class="text-white-700 px-4 py-2 rounded-md">{{ Auth::user()->name }}</a>
+                    <a href="{{ route('profile.index') }}"
+                        class="text-white-700 px-4 py-2 rounded-md">{{ Auth::user()->name }}</a>
                 @else
                     <a href="{{ route('login.index') }}" class="hover:underline text-slate-300 px-4 py-2 rounded-md">Log
                         In</a>

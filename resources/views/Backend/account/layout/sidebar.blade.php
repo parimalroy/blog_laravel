@@ -9,12 +9,16 @@
             </li>
             <li><a href="{{ route('blog.index') }}" class="block px-4 py-2 rounded-md hover:bg-slate-700">Manage Blogs</a>
             </li>
+            <li><a href="#users-section" class="block px-4 py-2 rounded-md hover:bg-slate-700">Comment</a>
+            </li>
             <li><a href="#users-section" class="block px-4 py-2 rounded-md hover:bg-slate-700">Manage Users</a>
             </li>
             <li><a href="{{ route('profile.edit') }}" class="block px-4 py-2 rounded-md hover:bg-slate-700">Update
                     Profile</a>
             </li>
             <li><a href="#settings-section" class="block px-4 py-2 rounded-md hover:bg-slate-700">Settings</a>
+            </li>
+            <li><a href="{{ route('home.index') }}" class="block px-4 py-2 rounded-md hover:bg-slate-700">View Site</a>
             </li>
         </ul>
     </nav>

@@ -17,6 +17,9 @@ Route::get('/blog/list', [HomeController::class,'list'])->name('home.list');
 Route::get('/blog/categorie', [CategoryController::class,'list'])->name('categorie.list');
 Route::get('/blog/categorie/single/{id}', [CategoryController::class,'categorie_single'])->name('categorie.single');
 
+Route::get('/blog/comment/index', [AccountController::class,'comment_index'])->name('comment.index');
+Route::post('/blog/comment/store', [HomeController::class,'comment_store'])->name('comment.store');
+
 
 Route::group(['prefix'=>'account'],function(){
     Route::group(['middleware'=>'guest'],function(){

@@ -64,7 +64,7 @@
             </div>
 
             <div class="flex justify-end space-x-4">
-                <a href="{{ route('blog.index') }}"
+                <a href="{{ route('profile.index') }}"
                     class="px-6 py-3 bg-red-600 text-white font-bold rounded-lg hover:bg-red-500 transition">Cancel</a>
                 <button type="submit"
                     class="px-6 py-3 bg-blue-600 text-white font-bold rounded-lg hover:bg-blue-500 transition">Publish
