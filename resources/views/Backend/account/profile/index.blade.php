@@ -30,27 +30,28 @@
                     <tr class="hover:bg-slate-50">
                         <td class="py-3 px-4">
 
-                            <div class="bg-orange-500 text-white p-8  w-32 h-32 flex justify-center   rounded-b-lg">
-                                <span class="">User</span><br />
-                                <h2 class="text-4xl font-bold">45</h2>
+                            <div class="bg-orange-500 text-white p-8  w-32 h-32  justify-center   rounded-b-lg">
+                                <span class="">User-</span><br />
+                                <h2 class="text-4xl font-bold">{{ $users < 10 ? '0' . $users : $users }}</h2>
                             </div>
                         </td>
                         <td class="py-3 px-4">
-                            <div class="bg-amber-500 text-white p-8  w-32 h-32 flex justify-center  rounded-b-lg">
-                                <span>Blog</span>
-                                <h2 class="text-4xl font-bold">45</h2>
+                            <div class="bg-amber-500 text-white p-8  w-32 h-32  justify-center  rounded-b-lg">
+                                <span>Blog-</span>
+                                <h2 class="text-4xl font-bold">{{ $blogs < 10 ? '0' . $blogs : $blogs }}</h2>
                             </div>
                         </td>
                         <td class="py-3 px-4">
-                            <div class="bg-lime-500 text-white p-8  w-32 h-32 flex justify-center rounded-b-lg">
-                                <span>Category</span>
-                                <h2 class="text-4xl font-bold">45</h2>
+                            <div class="bg-lime-500 text-white p-8  w-32 h-32  justify-center rounded-b-lg">
+                                <span>Category-</span>
+                                <h2 class="text-4xl font-bold">{{ $categorie < 10 ? '0' . $categorie : $categorie }}
+                                </h2>
                             </div>
                         </td>
                         <td class="py-3 px-4 flex space-x-4">
-                            <div class="bg-sky-500 text-white p-8  w-32 h-32 flex justify-center rounded-b-lg">
-                                <span>Comment</span>
-                                <h2 class="text-4xl font-bold">45</h2>
+                            <div class="bg-sky-500 text-white p-8  w-32 h-32  justify-center rounded-b-lg">
+                                <span>Comment-</span>
+                                <h2 class="text-4xl font-bold">{{ $comments < 10 ? '0' . $comments : $comments }}</h2>
                             </div>
                         </td>
                     </tr>

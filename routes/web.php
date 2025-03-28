@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\CategoryController;
 
@@ -17,9 +18,7 @@ Route::get('/blog/list', [HomeController::class,'list'])->name('home.list');
 Route::get('/blog/categorie', [CategoryController::class,'list'])->name('categorie.list');
 Route::get('/blog/categorie/single/{id}', [CategoryController::class,'categorie_single'])->name('categorie.single');
 
-Route::get('/blog/comment/index', [AccountController::class,'comment_index'])->name('comment.index');
-Route::get('/blog/comment/edit/{id}', [AccountController::class,'comment_edit'])->name('comment.edit');
-Route::post('/blog/comment/update', [AccountController::class,'comment_update'])->name('comment.update');
+
 
 Route::post('/blog/comment/store', [HomeController::class,'comment_store'])->name('comment.store');
 
@@ -40,12 +39,17 @@ Route::group(['prefix'=>'account'],function(){
         Route::post('profile/update',[AccountController::class,'profile_update'])->name('profile.update');
 
 
+
         Route::get('category/index',[CategoryController::class,'index'])->name('category.index');
         Route::get('category/create',[CategoryController::class,'create'])->name('category.create');
         Route::post('category/store',[CategoryController::class,'store'])->name('category.store');
         Route::get('category/edit/{id}',[CategoryController::class,'edit'])->name('category.edit');
         Route::post('category/update',[CategoryController::class,'update'])->name('category.update');
 
+        Route::get('/blog/comment/index', [AccountController::class,'comment_index'])->name('comment.index');
+        Route::get('/blog/comment/edit/{id}', [AccountController::class,'comment_edit'])->name('comment.edit');
+        Route::post('/blog/comment/update', [AccountController::class,'comment_update'])->name('comment.update');
+            });
 
         Route::get('blog/index',[BlogController::class,'index'])->name('blog.index');
         Route::get('blog/create',[BlogController::class,'create'])->name('blog.create');
@@ -53,7 +57,12 @@ Route::group(['prefix'=>'account'],function(){
         Route::get('blog/edit/{id}',[BlogController::class,'edit'])->name('blog.edit');
         Route::post('blog/update',[BlogController::class,'update'])->name('blog.update');
         Route::delete('blog/delete/{id}',[BlogController::class,'destory'])->name('blog.delete');
-    });
+
+        Route::get('user/index',[UserController::class,'index'])->name('user.index');
+        Route::get('user/edit/{id}',[UserController::class,'edit'])->name('user.edit');
+        Route::post('user/update',[UserController::class,'update'])->name('user.update');
+
+       
     
 });
 

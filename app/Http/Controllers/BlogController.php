@@ -6,13 +6,14 @@ use App\Models\Blog;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 
 class BlogController extends Controller
 {
     // this method show blog list
     public function index(Request $request){
-        $blogs =Blog::orderBy('id','DESC');
+        $blogs =Blog::with('users')->where('user_id',Auth::user()->id)->orderBy('id','DESC');
         if(!empty($request->keyword)){
             $blogs->where('title','like','%'.$request->keyword.'%');
         }
@@ -43,6 +44,7 @@ class BlogController extends Controller
             'author'=>Auth::user()->name,
             'photo'=>$path,
             'content'=>$request->content,
+            'user_id'=>Auth::user()->id,
             'categorie_id'=>$request->categorie_id,
         ]);
 
@@ -53,7 +55,12 @@ class BlogController extends Controller
 
     //this method show edit blog
     public function edit($id){
+
+        //authorize user
         $blog = Blog::findOrFail($id);
+        $targetUser=$blog->user_id;
+        Gate::authorize('blog-access',$targetUser);
+
         $categories = Category::get();
         return view('Backend.blog.edit',['blog'=>$blog,'categories'=>$categories]);
     }
@@ -68,7 +75,10 @@ class BlogController extends Controller
             'categorie_id'=>'required'
         ]);
 
+        //authorize user
         $blog = Blog::find($request->id);
+        $targetUser=$blog->user_id;
+        Gate::authorize('blog-access',$targetUser);
 
         
         $photoStoreage = public_path('storage/'.$blog->photo);

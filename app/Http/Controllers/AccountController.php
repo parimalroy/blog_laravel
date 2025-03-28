@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Blog;
 use App\Models\User;
 use App\Models\Comment;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -65,7 +67,17 @@ class AccountController extends Controller
     // this method show profile
 
     public function profile_index() {
-        return view('Backend.account.profile.index');
+        $users=User::count();
+        $comments=Comment::count();
+        $blogs=Blog::count();
+        $categorie=Category::count();
+        // dd($comment);
+        return view('Backend.account.profile.index',[
+            'users'=>$users,
+            'comments'=>$comments,
+            'blogs'=>$blogs,
+            'categorie'=>$categorie,
+        ]);
     }
 
     // this method edit user info

@@ -2,23 +2,46 @@
     <div class="p-6 text-center font-bold text-2xl tracking-wide border-b border-slate-700">Admin Panel</div>
     <nav class="flex-grow">
         <ul class="space-y-2 p-4">
-            <li><a href="{{ route('profile.index') }}" class="block px-4 py-2 rounded-md hover:bg-slate-700">Dashboard</a>
+            <li class="p-2">
+                <a href="{{ route('profile.index') }}"
+                    class="{{ Request::path() == 'account/profile' ? 'hover:underline px-4 py-2 rounded-md bg-slate-700 font-bold text-white' : 'block px-4 py-2 rounded-md hover:bg-slate-700' }}"><i
+                        class="fas fa-home pr-2 text-slate-300"></i>
+                    Dashboard</a>
             </li>
-            <li><a href="{{ route('category.index') }}"
-                    class="block px-4 py-2 rounded-md hover:bg-slate-700">Categories</a>
+            @can('superAdmin')
+                <li class="p-2"><a href="{{ route('category.index') }}"
+                        class="{{ Request::segment(2) == 'category' ? 'hover:underline px-4 py-2 rounded-md bg-slate-700 font-bold text-white' : 'block px-4 py-2 rounded-md hover:bg-slate-700' }}"><i
+                            class="fas fa-tags pr-2 text-slate-300"></i>Categories</a>
+                </li>
+            @endcan
+            <li class="p-2"><a href="{{ route('blog.index') }}"
+                    class="block px-4 py-2 rounded-md hover:bg-slate-700"> <i
+                        class="fas fa-newspaper pr-2 text-slate-300"></i>Manage
+                    Blogs</a>
             </li>
-            <li><a href="{{ route('blog.index') }}" class="block px-4 py-2 rounded-md hover:bg-slate-700">Manage Blogs</a>
-            </li>
-            <li><a href="{{ route('comment.index') }}" class="block px-4 py-2 rounded-md hover:bg-slate-700">Comment</a>
-            </li>
-            <li><a href="#users-section" class="block px-4 py-2 rounded-md hover:bg-slate-700">Manage Users</a>
-            </li>
-            <li><a href="{{ route('profile.edit') }}" class="block px-4 py-2 rounded-md hover:bg-slate-700">Update
+            @can('superAdmin-admin')
+                <li class="p-2"><a href="{{ route('comment.index') }}"
+                        class="{{ Request::segment(2) == 'comment' ? 'hover:underline px-4 py-2 rounded-md bg-slate-700 font-bold text-white' : 'block px-4 py-2 rounded-md hover:bg-slate-700' }}"><i
+                            class="fas fa-comments pr-2 text-slate-300"></i>Comment</a>
+                </li>
+            @endcan
+            @can('superAdmin')
+                <li class="p-2"><a href="{{ route('user.index') }}"
+                        class="block px-4 py-2 rounded-md hover:bg-slate-700"><i
+                            class="fas fa-user pr-2 text-slate-300"></i>Manage Users</a>
+                </li>
+            @endcan
+            <li class="p-2"><a href="{{ route('profile.edit') }}"
+                    class="{{ Request::segment(3) == 'edit' ? 'hover:underline px-4 py-2 rounded-md bg-slate-700 font-bold text-white' : 'block px-4 py-2 rounded-md hover:bg-slate-700' }}"><i
+                        class="fas fa-user-alt pr-2 text-slate-300"></i>Update
                     Profile</a>
             </li>
-            <li><a href="#settings-section" class="block px-4 py-2 rounded-md hover:bg-slate-700">Settings</a>
-            </li>
-            <li><a href="{{ route('home.index') }}" class="block px-4 py-2 rounded-md hover:bg-slate-700">View Site</a>
+            {{-- <li class="p-2"><a href="#settings-section" class="block px-4 py-2 rounded-md hover:bg-slate-700"> <i
+                        class="fas fa-sliders-h pr-2 text-slate-300"></i>Settings</a>
+            </li> --}}
+            <li class="p-2"><a href="{{ route('home.index') }}"
+                    class="block px-4 py-2 rounded-md hover:bg-slate-700"><i
+                        class="fas fa-eye pr-2 text-slate-300"></i>View Site</a>
             </li>
         </ul>
     </nav>

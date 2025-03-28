@@ -15,6 +15,9 @@ class Blog extends Model
     protected $guarded=[];
 
 
+    public function users(){
+        return $this->belongsTo(User::class,'user_id');
+    }
     public function categories(){
         return $this->belongsTo(Category::class,'categorie_id');
     }
