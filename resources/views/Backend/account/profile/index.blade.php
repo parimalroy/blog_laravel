@@ -17,37 +17,35 @@
                 New Blog</a>
         </div>
         <div class="overflow-x-auto bg-white rounded-lg shadow-lg p-4">
+            <h1>{{ Auth::user()->role === 'superAdmin' || Auth::user()->role === 'admin' ? 'Blog Summary' : 'Your Summary' }}
+            </h1>
             <table class="w-full border-collapse border border-slate-300">
-                {{-- <thead class="bg-slate-800 text-white">
-                    <tr>
-                        <th class="text-left py-3 px-4">Total user</th>
-                        <th class="text-left py-3 px-4">Total Blog</th>
-                        <th class="text-left py-3 px-4">Total Categories</th>
-                        <th class="text-left py-3 px-4">Total Comment</th>
-                    </tr>
-                </thead> --}}
+
                 <tbody class="">
                     <tr class="hover:bg-slate-50">
-                        <td class="py-3 px-4">
-
-                            <div class="bg-orange-500 text-white p-8  w-32 h-32  justify-center   rounded-b-lg">
-                                <span class="">User-</span><br />
-                                <h2 class="text-4xl font-bold">{{ $users < 10 ? '0' . $users : $users }}</h2>
-                            </div>
-                        </td>
+                        @can('superAdmin-admin')
+                            <td class="py-3 px-4">
+                                <div class="bg-orange-500 text-white p-8  w-32 h-32  justify-center   rounded-b-lg">
+                                    <span class="">User-</span><br />
+                                    <h2 class="text-4xl font-bold">{{ $users < 10 ? '0' . $users : $users }}</h2>
+                                </div>
+                            </td>
+                        @endcan
                         <td class="py-3 px-4">
                             <div class="bg-amber-500 text-white p-8  w-32 h-32  justify-center  rounded-b-lg">
                                 <span>Blog-</span>
                                 <h2 class="text-4xl font-bold">{{ $blogs < 10 ? '0' . $blogs : $blogs }}</h2>
                             </div>
                         </td>
-                        <td class="py-3 px-4">
-                            <div class="bg-lime-500 text-white p-8  w-32 h-32  justify-center rounded-b-lg">
-                                <span>Category-</span>
-                                <h2 class="text-4xl font-bold">{{ $categorie < 10 ? '0' . $categorie : $categorie }}
-                                </h2>
-                            </div>
-                        </td>
+                        @can('superAdmin-admin')
+                            <td class="py-3 px-4">
+                                <div class="bg-lime-500 text-white p-8  w-32 h-32  justify-center rounded-b-lg">
+                                    <span>Category-</span>
+                                    <h2 class="text-4xl font-bold">{{ $categorie < 10 ? '0' . $categorie : $categorie }}
+                                    </h2>
+                                </div>
+                            </td>
+                        @endcan
                         <td class="py-3 px-4 flex space-x-4">
                             <div class="bg-sky-500 text-white p-8  w-32 h-32  justify-center rounded-b-lg">
                                 <span>Comment-</span>

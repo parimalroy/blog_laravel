@@ -8,6 +8,7 @@ use App\Models\Comment;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class AccountController extends Controller
 {
@@ -50,7 +51,7 @@ class AccountController extends Controller
             'password' =>'required'
         ]);
 
-        if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+        if (Auth::attempt(['email' => $request->email, 'password' => $request->password],$request->remember)) {
             return redirect()->route('profile.index');
         } else {
             return redirect()->route('login.index')->with('error', 'Creditional not match');
@@ -67,16 +68,24 @@ class AccountController extends Controller
     // this method show profile
 
     public function profile_index() {
-        $users=User::count();
-        $comments=Comment::count();
-        $blogs=Blog::count();
-        $categorie=Category::count();
+        if (Gate::allows('superAdmin-admin')) {
+            $users=User::count();
+            $comments=Comment::count();
+            $blogs=Blog::count();
+            $categorie=Category::count();
+        } else
+        {
+            $users=User::count();
+            $comments=Comment::with('users')->where('user_id', Auth::user()->id)->count();
+            $blogs=Blog::with('users')->where('user_id', Auth::user()->id)->count();
+            $categorie=Category::count();
+    }
         // dd($comment);
         return view('Backend.account.profile.index',[
-            'users'=>$users,
-            'comments'=>$comments,
-            'blogs'=>$blogs,
-            'categorie'=>$categorie,
+            'users'     =>$users,
+            'comments'  =>$comments,
+            'blogs'     =>$blogs,
+            'categorie' =>$categorie,
         ]);
     }
 
@@ -87,23 +96,23 @@ class AccountController extends Controller
         return view('Backend.account.profile.edit', ['users'=>$users]);
     }
 
-    //this method update pforile data
+    // this method update pforile data
 
-    public function profile_update(Request $request){
+    public function profile_update(Request $request) {
         $request->validate([
-            'name'=>'required|min:3|max:255',
-            'email'=>'required',
-            'photo'=>'mimes:jpg, png, jpeg|max:3000'
+            'name'  =>'required|min:3|max:255',
+            'email' =>'required',
+            'photo' =>'mimes:jpg, png, jpeg|max:3000'
         ]);
 
         $users = User::find(Auth::user()->id);
         $storageImage=public_path('storage/').$users->photo;
-        if(file_exists($storageImage)){
+        if (file_exists($storageImage)) {
             @unlink($storageImage);
         }
 
-        if($request->hasFile('photo')){
-            $path=$request->photo->store('image','public');
+        if ($request->hasFile('photo')) {
+            $path=$request->photo->store('image', 'public');
             $users->photo=$path;
             $users->save();
         }
@@ -111,38 +120,38 @@ class AccountController extends Controller
         $users->email=$request->email;
         $users->save();
 
-        if($users){
-            return redirect()->route('profile.edit')->with('success','Profile Updated !');
+        if ($users) {
+            return redirect()->route('profile.edit')->with('success', 'Profile Updated !');
         }
     }
 
-     //this function show all comment list for admin
-     public function comment_index(){
+     // this function show all comment list for admin
+     public function comment_index() {
         $comments = Comment::all();
-        return view('Backend.comment.index',['comments'=>$comments]);
+        return view('Backend.comment.index', ['comments'=>$comments]);
      }
 
-     //this method edit comment 
-     public function comment_edit($id){
+     // this method edit comment 
+     public function comment_edit($id) {
         $comment =Comment::findOrFail($id);
-        return view('Backend.comment.edit',['comment'=>$comment]);
+        return view('Backend.comment.edit', ['comment'=>$comment]);
     }
 
-    //this method update comment and status for admin
-    public function comment_update(Request $request){
+    // this method update comment and status for admin
+    public function comment_update(Request $request) {
         $request->validate([
-            'comment'=>'required|min:3|max:255',
-            'status'=>'required'
+            'comment' =>'required|min:3|max:255',
+            'status'  =>'required'
         ]);
 
         $comment=Comment::find($request->id);
         $comment->update([
-            'comment'=>$request->comment,
-            'status'=>$request->status
+            'comment' =>$request->comment,
+            'status'  =>$request->status
         ]);
 
-        if($comment){
-            return redirect()->route('comment.edit',$request->id)->with('success','comment Updated !');
+        if ($comment) {
+            return redirect()->route('comment.edit', $request->id)->with('success', 'comment Updated !');
         }
     }
 }

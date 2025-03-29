@@ -17,7 +17,7 @@
             @csrf
             <div class="mb-4">
                 <label for="email" class="block text-slate-700 font-medium mb-2">Email</label>
-                <input type="email" id="email" name="email"
+                <input type="email" id="email" name="email" value="{{ old('email') }}"
                     class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring focus:ring-slate-400 @error('email') is-invalid @enderror"
                     placeholder="Enter your email">
                 @error('email')
@@ -35,10 +35,11 @@
             </div>
             <div class="flex items-center justify-between mb-6">
                 <label class="inline-flex items-center text-slate-600">
-                    <input type="checkbox" class="form-checkbox text-slate-600 focus:ring focus:ring-slate-400 rounded">
+                    <input type="checkbox" class="form-checkbox text-slate-600 focus:ring focus:ring-slate-400 rounded"
+                        name="remember">
                     <span class="ml-2">Remember me</span>
                 </label>
-                <a href="#" class="text-slate-600 hover:underline text-sm">Forgot Password?</a>
+                {{-- <a href="#" class="text-slate-600 hover:underline text-sm">Forgot Password?</a> --}}
             </div>
             <button type="submit"
                 class="w-full px-4 py-2 bg-slate-800 text-white font-bold rounded-lg hover:bg-slate-700 transition">Login</button>
