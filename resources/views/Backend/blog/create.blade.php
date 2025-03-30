@@ -7,7 +7,7 @@
             @csrf
             <div class="mb-6">
                 <label for="title" class="block text-slate-700 font-medium mb-2">Blog Title</label>
-                <input type="text" id="title" name="title"
+                <input type="text" id="title" name="title" value="{{ old('title') }}"
                     class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring focus:ring-slate-400 @error('title') is-invalid @enderror"
                     placeholder="Enter the blog title">
                 @error('title')
@@ -39,7 +39,7 @@
                 <label for="content" class="block text-slate-700 font-medium mb-2">Blog Content</label>
                 <textarea id="content" name="content"
                     class="w-full h-64 px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring focus:ring-slate-400 @error('content') is-invalid @enderror"
-                    placeholder="Write your blog content here..."></textarea>
+                    placeholder="Write your blog content here...">{{ old('content') }}</textarea>
                 @error('content')
                     <div class="text-red-600">{{ $message }}</div>
                 @enderror

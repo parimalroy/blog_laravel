@@ -51,10 +51,17 @@ class AccountController extends Controller
             'password' =>'required'
         ]);
 
-        if (Auth::attempt(['email' => $request->email, 'password' => $request->password],$request->remember)) {
+        if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+            if(isset($request->remember) && !empty($request->remember)){
+                setcookie('email',$request->email,time()+60);
+                setcookie('password',$request->password,time()+60);
+            }else{
+                setcookie('email','');
+                setcookie('password','');
+            }
             return redirect()->route('profile.index');
         } else {
-            return redirect()->route('login.index')->with('error', 'Creditional not match');
+            return redirect()->route('login.index')->withInput()->with('error', 'Creditional not match');
         }
     }
 
