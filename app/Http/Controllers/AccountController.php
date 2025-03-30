@@ -113,12 +113,13 @@ class AccountController extends Controller
         ]);
 
         $users = User::find(Auth::user()->id);
+        if ($request->hasFile('photo')) {
         $storageImage=public_path('storage/').$users->photo;
         if (file_exists($storageImage)) {
             @unlink($storageImage);
         }
 
-        if ($request->hasFile('photo')) {
+        
             $path=$request->photo->store('image', 'public');
             $users->photo=$path;
             $users->save();

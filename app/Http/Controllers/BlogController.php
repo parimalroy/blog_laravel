@@ -102,14 +102,14 @@ class BlogController extends Controller
         }
 
 
-        
+        if($request->hasFile('photo')){
         $photoStoreage = public_path('storage/'.$blog->photo);
         
         if(file_exists($photoStoreage)){
             @unlink($photoStoreage);
         }
 
-        if($request->hasFile('photo')){
+        
             $path=$request->photo->store('image','public');
             $blog->photo=$path;
             $blog->save();
