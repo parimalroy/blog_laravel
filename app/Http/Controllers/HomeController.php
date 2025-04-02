@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Blog;
+use App\Models\Reply;
 use App\Models\Comment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -18,11 +19,8 @@ class HomeController extends Controller
     //this method show blog details page
     public function details($id){
         $blog = Blog::with(['comments'=>function($query){
-            $query->where('status',1)->orderBy('created_at','desc');;
+            $query->where('status',1)->orderBy('created_at','desc')->with('replies');
         }])->findorFail($id);
-        
-        // dd($blog);
-        // $comments=Comment::where('status',1)->get();
         $reletedBlog=Blog::inRandomOrder()->limit(3)->get();
         return view('Frontend.details',['blog'=>$blog,'reletedBlog'=>$reletedBlog]);
     }
@@ -48,6 +46,24 @@ class HomeController extends Controller
 
         if($comments){
             return redirect()->route('home.detail',$request->blog_id)->with('success','comment added success! please wait for admin approve!');
+        }
+    }
+
+    //this method store user replay
+    public function store_reply(Request $request){
+        $request->validate([
+            'title'=>'required:min:3|max:255'
+        ]);
+
+        // dd($request->comment_id);
+        $replay=Reply::create([
+            'title'=>$request->title,
+            'user_id'=>Auth::user()->id,
+            'comment_id'=>$request->comment_id
+        ]);
+
+        if($replay){
+            return redirect()->route('home.detail',$request->blog_id)->with('success','Reply add Success');
         }
     }
 }

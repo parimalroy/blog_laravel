@@ -15,6 +15,8 @@ Route::get('/', [HomeController::class,'index'])->name('home.index');
 Route::get('/blog/details/{id}', [HomeController::class,'details'])->name('home.detail');
 Route::get('/blog/list', [HomeController::class,'list'])->name('home.list');
 
+Route::post('/blog/reply', [HomeController::class,'store_reply'])->name('store.reply');
+
 Route::get('/blog/categorie', [CategoryController::class,'list'])->name('categorie.list');
 Route::get('/blog/categorie/single/{id}', [CategoryController::class,'categorie_single'])->name('categorie.single');
 

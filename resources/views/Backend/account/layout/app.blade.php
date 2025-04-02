@@ -25,7 +25,8 @@
                 <div id="profile-menu"
                     class="absolute right-0 mt-2 w-48 bg-white border border-slate-200 rounded-lg shadow-lg hidden">
                     <a href="#" class="block px-4 py-2 text-slate-700 hover:bg-slate-100">Profile</a>
-                    <a href="#" class="block px-4 py-2 text-slate-700 hover:bg-slate-100">Settings</a>
+                    <a href="{{ route('profile.edit') }}"
+                        class="block px-4 py-2 text-slate-700 hover:bg-slate-100">Settings</a>
                     <a href="{{ route('profile.logout') }}"
                         class="block px-4 py-2 text-red-600 hover:bg-red-50">Logout</a>
                 </div>

@@ -52,10 +52,22 @@
                             <img width="50px" height="50px" src="{{ asset('storage/' . $cmt->users->photo) }}"
                                 alt="User" class="rounded-full">
                             <div class="w-full">
-                                <p class="text-sm font-semibold">{{ $cmt->users->name }}</p>
+                                <p class="text-sm font-semibold">{{ $cmt->users->name }} ( {{ $cmt->created_at }} )</p>
                                 <p class="text-gray-700 mt-2">{{ $cmt->comment }}</p>
                                 @if (Auth::check())
-                                    <button id="openReplyModal" class="text-blue-500 text-xs mt-2">Reply</button>
+                                    {{-- <button id="openReplyModal" class="text-blue-500 text-xs mt-2">Reply</button> --}}
+                                    <form action="{{ route('store.reply') }}" method="post">
+                                        @csrf
+                                        <input type="hidden" name="comment_id" value="{{ $cmt->id ?? '' }}">
+                                        <input type="hidden" name="blog_id" value="{{ $blog->id }}">
+                                        <input type="text" name="title"
+                                            class="w-full mt-4 mb-1 p-2 border border-gray-300 rounded-md @error('title') is-invalid @enderror">
+                                        {{-- @error('title')
+                                            <div class="text-red-600">{{ $message }}</div>
+                                        @enderror --}}
+
+                                        <button class="bg-blue-500 text-white px-4 py-2 rounded-md mb-4">Reply</button>
+                                    </form>
                                 @else
                                     <a href="{{ route('login.index') }}" id=""
                                         class="text-blue-500 text-xs mt-2">Reply</a>
@@ -63,20 +75,52 @@
                             </div>
 
                         </div>
+                        @if ($cmt->replies->isNotEmpty())
+                            @foreach ($cmt->replies as $reply)
+                                @if ($cmt->id == $reply->comment_id)
+                                    <div class="flex items-start space-x-4 m-5 pb-4 border-b-4">
+                                        <h1></h1>
+                                        <img width="50px" height="50px"
+                                            src="{{ asset('storage/' . $reply->users->photo) }}" alt="User"
+                                            class="rounded-full">
+                                        <div class="w-full">
+                                            <p class="text-sm font-semibold">{{ $reply->users->name }}</p>
+
+                                            <p class="text-gray-700 mt-2">{{ $reply->title }}</p>
+                                        </div>
+                                    </div>
+                                @endif
+                            @endforeach
+                        @endif
+
                     </div>
+                    {{-- @endforeach
+            @endif --}}
+
+                    <!-- Reply Modal (Third) -->
+                    {{-- <form action="{{ route('store.reply') }}" method="post">
+                        @csrf
+                        <input type="hidden" name="comment_id" value="{{ $cmt->id ?? '' }}">
+                        <input type="hidden" name="blog_id" value="{{ $blog->id }}">
+                        <div id="replyModal"
+                            class="fixed top-20 bg-gray-800 bg-opacity-50 hidden justify-center items-center z-50">
+                            <div class="bg-white p-6 rounded-lg shadow-lg w-96">
+                                <h3 class="text-xl font-semibold mb-4">Reply to {{ $cmt->users->name ?? '' }}</h3>
+                                <textarea id="replyText" rows="4"
+                                    class="w-full p-2 border border-gray-300 rounded-md @error('title') is-invalid @enderror" name="title"></textarea>
+                                @error('title')
+                                    <div class="text-red-600">{{ $message }}</div>
+                                @enderror
+                                <div class="flex justify-end mt-4">
+                                    <button type="submit" id="closeReplyModal"
+                                        class="bg-blue-500 text-white px-4 py-2 rounded-md">Send
+                                        Reply</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form> --}}
                 @endforeach
             @endif
-
-            <!-- Reply Modal (Third) -->
-            <div id="replyModal" class="fixed top-20 bg-gray-800 bg-opacity-50 hidden justify-center items-center z-50">
-                <div class="bg-white p-6 rounded-lg shadow-lg w-96">
-                    <h3 class="text-xl font-semibold mb-4">Reply to Jane Smith</h3>
-                    <textarea id="replyText" rows="4" class="w-full p-2 border border-gray-300 rounded-md"></textarea>
-                    <div class="flex justify-end mt-4">
-                        <button id="closeReplyModal" class="bg-blue-500 text-white px-4 py-2 rounded-md">Send Reply</button>
-                    </div>
-                </div>
-            </div>
         </div>
 
         </div>

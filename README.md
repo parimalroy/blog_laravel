@@ -19,6 +19,7 @@ The system has two parts: **Backend** and **Frontend**. The backend is where the
   
 - **Blog Posts**: Blog posts can be created by users after logging in. Each blog post is categorized, and users can search blogs by title.
 - **Comment System**: Users can leave comments on blog posts, but comments need to be approved by the Super Admin or Admin before being displayed.
+- **Comment Reply**: Login user can reply and no need to admin approval.
 - **Blog Search**: Users can search for blog posts by keywords or categories.
 
 
